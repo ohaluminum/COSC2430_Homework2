@@ -1,12 +1,36 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include "ArgumentManager.h"
 
 using namespace std;
 
-int main()
+struct problem
 {
-    std::cout << "Hello World!\n";
+    int id;
+    string name;
+    string difficulty;
+};
+
+
+
+int main(int argc, char* argv[])
+{
+    ArgumentManager am(argc, argv);
+
+    //Get the filename of argument name "input" and "output" and "command"
+    //string input = am.get("input");
+    //string output = am.get("output");
+    //string command = am.get("command");
+
+    //Test
+    string input = "input21.txt";
+    string output = "output21.txt";
+    string command = "command21.txt";
+
+
+
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

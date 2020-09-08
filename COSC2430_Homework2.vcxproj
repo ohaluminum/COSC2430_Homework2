@@ -149,6 +149,23 @@
   <ItemGroup>
     <ClCompile Include="COSC2430_Homework2.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="ans21.txt" />
+    <Text Include="ans22.txt" />
+    <Text Include="ans23.txt" />
+    <Text Include="command21.txt" />
+    <Text Include="command22.txt" />
+    <Text Include="command23.txt" />
+    <Text Include="input21.txt" />
+    <Text Include="input22.txt" />
+    <Text Include="input23.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="test2.sh" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ArgumentManager.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
