@@ -5,13 +5,63 @@
 
 using namespace std;
 
+//Create a problem node
 struct problem
 {
+    //Basic information
     int id;
     string name;
     string difficulty;
+
+    //Link to the next problem
+    problem* next;
 };
 
+//Create a problem link
+class problemList
+{
+private:
+    //Head pointer points to the first problem
+    problem* head;
+
+
+public:
+    //Constructor
+    problemList()
+    {
+        head = nullptr;
+    }
+
+    void addProblem(int location, int id, string name, string difficulty)
+    {
+        //1.Create a temperary problem
+        problem* temp = new problem;
+
+        //2.Fill the problem information
+        temp->id = id;
+        temp->name = name;
+        temp->difficulty = difficulty;
+
+        //3.Update the pointer
+        //temp->next = head;
+        //head = temp;
+    }
+
+    void deleteProblem()
+    {
+
+    }
+
+    void sortProblem()
+    {
+
+    }
+
+
+
+
+
+};
 
 
 int main(int argc, char* argv[])
@@ -27,6 +77,28 @@ int main(int argc, char* argv[])
     string input = "input21.txt";
     string output = "output21.txt";
     string command = "command21.txt";
+
+    ifstream inFS;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
