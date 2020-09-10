@@ -71,11 +71,29 @@ public:
         }
     }
 
+    //Create a function to check if the id is repeated
+    bool isRepeated(int id)
+    {
+        problem* temp = head;
+        while (temp != nullptr)
+        {
+            if (temp->id == id)
+            {
+                return true;
+            }
+           
+            temp = temp->next;
+        }
+
+        return false;
+    }
+
     void addProblem(int location, int id, string name, string difficulty)
     {
-        if (location < 0)
+        //Check if the problem id is repeated
+        if (isRepeated(id) == true)
         {
-            location = 0;
+            return;
         }
         
         //1.Create a temperary problem
@@ -87,11 +105,37 @@ public:
         temp->difficulty = difficulty;
 
         //3.Update the pointer
-        //temp->next = head;
-        //head = temp;
+        //If the index is negative, add the problem at the begining of the list
+        if (location <= 0)
+        {
+            temp->next = head;
+            head = temp;
+        }
+        //If the index is greater than list size, add it at the end of the list
+        else if (location >= size)
+        {
+            temp->next = nullptr;
+            tail->next = temp;
+            tail = temp;
+        }
+        //The index is in the right range
+        else
+        {
+
+
+
+
+
+
+
+
+        }
+
+        //Increment the list size
+        size++;
     }
 
-    void deleteProblem()
+    void removeProblem()
     {
 
     }
