@@ -35,6 +35,12 @@ public:
         tail = nullptr;
     }
 
+    //Accessor
+    problem* getHead()
+    {
+        return head;
+    }
+
     void inputProblem(int id, string name, string difficulty)
     {
         //1.Create a temperary problem
@@ -108,6 +114,7 @@ int main(int argc, char* argv[])
 
     ifstream inFS;
     ofstream outFS;
+    istringstream inSS;
 
     inFS.open(input);
 
@@ -118,11 +125,57 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    //Read the input file: problem list
+    int id;
+    string id_str;
+    string name;
+    string difficulty;
+    string line;
+    string bin;
 
+    //Create a probelm linked list
+    problemList QList;
 
-    //Write a new function to create linked list
+    //Read the input file line by line
+    while (getline(inFS, line))
+    {
+        //Clear input string stream
+        inSS.clear();
 
+        //Using input string stream to read problem line
+        inSS.str(line);
+
+        //Read useless information
+        getline(inSS, bin, ':');
+
+        //Read problem ID
+        getline(inSS, id_str, ',');
+        id = stoi(id_str);
+
+        //Read useless information
+        getline(inSS, bin, ':');
+
+        //Read problem name
+        getline(inSS, name, ',');
+
+        //Read useless information
+        getline(inSS, bin, ':');
+
+        //Read problem difficulty
+        getline(inSS, difficulty);
+
+        QList.inputProblem(id, name, difficulty);
+    }
+
+    //Close input file
+    inFS.close();
+
+    //Test
+    /*problem* temp = QList.getHead();
+    while (temp != nullptr)
+    {
+        cout << temp->id << temp->name << temp->difficulty << endl;
+        temp = temp->next;
+    }*/
 
 
 
