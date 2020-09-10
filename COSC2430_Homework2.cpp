@@ -9,12 +9,12 @@ using namespace std;
 struct problem
 {
     //Basic information
-    int id;
-    string name;
-    string difficulty;
+    int id = 0;
+    string name = "";
+    string difficulty = "";
 
     //Link to the next problem
-    problem* next;
+    problem* next = nullptr;
 };
 
 //Create a problem link
@@ -45,9 +45,107 @@ public:
         return head;
     }
 
-
-    void inputProblem(int id, string name, string difficulty)
+    //Create a function to check if the problem id is repeated
+    bool isRepeated(int id)
     {
+        problem* temp = head;
+        while (temp != nullptr)
+        {
+            if (temp->id == id)
+            {
+                return true;
+            }
+
+            temp = temp->next;
+        }
+
+        return false;
+    }
+
+    //Create a function to check if the problem list is empty
+    bool isEmpty()
+    {
+        if (size <= 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    //-------------------------------------------------------- ADD FUNCTION -----------------------------------------------
+
+    //Add problem at the beginning of the linked list
+    void addAtBeg(int id, string name, string difficulty)
+    {
+        //Check if the problem id is repeated
+        if (isRepeated(id) == true)
+        {
+            return;
+        }
+
+        //1.Create a temperary problem
+        problem* temp = new problem;
+
+        //2.Fill the problem information
+        temp->id = id;
+        temp->name = name;
+        temp->difficulty = difficulty;
+
+        //3.Update the pointer
+        temp->next = head;
+        head = temp;
+
+        //Increment the list size
+        size++;
+
+        return;
+    }
+
+    //Add problem at the middle of the linked list
+    void addAtMid(int pos, int id, string name, string difficulty)
+    {
+        //Check if the problem id is repeated
+        if (isRepeated(id) == true)
+        {
+            return;
+        }
+
+        //1.Create a temperary problem
+        problem* temp = new problem;
+
+        //2.Fill the problem information
+        temp->id = id;
+        temp->name = name;
+        temp->difficulty = difficulty;
+
+        //3.Update the pointer
+        problem* prev = new problem;
+        prev = head;
+
+        for (int i = 0; i < pos - 1; i++)
+        {
+            prev = prev->next;
+        }
+
+        temp->next = prev->next;
+        prev->next = temp;
+
+        //Increment the list size
+        size++;
+
+        return;
+    }
+
+    //Add problem at the end of the linked list
+    void addAtEnd(int id, string name, string difficulty)
+    {
+        //Check if the problem id is repeated
+        if (isRepeated(id) == true)
+        {
+            return;
+        }
+
         //1.Create a temperary problem
         problem* temp = new problem;
 
@@ -72,81 +170,214 @@ public:
 
         //Increment the list size
         size++;
+
+        return;
     }
 
-    //Create a function to check if the id is repeated
-    bool isRepeated(int id)
+    //Add more problem to the problem list
+    void addProblem(int pos, int id, string name, string difficulty)
     {
-        problem* temp = head;
-        while (temp != nullptr)
-        {
-            if (temp->id == id)
-            {
-                return true;
-            }
-           
-            temp = temp->next;
-        }
-
-        return false;
-    }
-
-    void addProblem(int location, int id, string name, string difficulty)
-    {
-        //Check if the problem id is repeated
-        if (isRepeated(id) == true)
-        {
-            return;
-        }
-        
-        //1.Create a temperary problem
-        problem* temp = new problem;
-
-        //2.Fill the problem information
-        temp->id = id;
-        temp->name = name;
-        temp->difficulty = difficulty;
-
-        //3.Update the pointer
         //If the index is negative, add the problem at the begining of the list
-        if (location <= 0)
+        if (pos <= 0)
         {
-            temp->next = head;
-            head = temp;
+            addAtBeg(id, name, difficulty);
         }
         //If the index is greater than list size, add it at the end of the list
-        else if (location >= size)
+        else if (pos >= size)
         {
-            temp->next = nullptr;
-            tail->next = temp;
-            tail = temp;
+            addAtEnd(id, name, difficulty);
         }
         //The index is in the right range
         else
         {
+            addAtMid(pos, id, name, difficulty);
+        }
+
+        return;
+    }
+
+    //----------------------------------------------------- REMOVE FUNCTION -----------------------------------------------
+
+    //Remove problem from the beginning of the linked list
+    void removeFromBeg()
+    {
+        //NOTICE: the size will be positive number
+
+        //1.Create a temperary problem
+        problem* temp = new problem;
+
+        //2.Update the pointer
+        temp = head;
+
+        //If the linked list has only one problem, the list will be empty after removing (head and tail will become nullptr)
+        if (size == 1)
+        {
+            head = nullptr;
+            tail = nullptr;
+        }
+        else if (size > 1)
+        {
+            head = head->next;
+        }
+
+        //3.Delete the temperary problem
+        delete temp;
+
+        //Decrement the list size
+        size--;
+    }
+
+    //Remove problem from the middle of the linked list
+    void removeFromMid(int pos)
+    {
+        //NOTICE: the size will be positive number and only if size >= 3 this member function will be called (have middle problem)  
+
+        //1.Create a temperary problem and previous problem
+        problem* temp = new problem;
+        problem* prev = new problem;
+
+        //Initialize the previous pointer 
+        prev = head;
+
+        //Point to the right position (before the remove position)
+        for (int i = 0; i < pos - 1; i++)
+        {
+            prev = prev->next;
+        }
+
+        //2.Update the pointer
+        temp = prev->next;
+        prev->next = temp->next;
+
+        //3.Remove the temperary problem
+        delete temp;
+
+        //Decrement the list size
+        size--;
+    }
+
+    //Remove problem from the end of the linked list
+    void removeFromEnd()
+    {
+        //NOTICE: the size will be positive number
+
+        //1.Create a temperary problem
+        problem* temp = new problem;
+
+        //2.Update the pointer
+        temp = tail;
+
+        //If the linked list has only one problem, the list will be empty after removing (head and tail will become nullptr)
+        if (size == 1)
+        {
+            head = nullptr;
+            tail = nullptr;
+        }
+        else if (size > 1)
+        {
+            //Create a previous problem
             problem* prev = new problem;
+
+            //Initialize the previous pointer
             prev = head;
 
-            for (int i = 0; i < location - 1; i++)
+            //Point to the right position (before the remove position)
+            for (int i = 0; i < size - 2; i++)
             {
                 prev = prev->next;
             }
 
-            temp->next = prev->next;
-            prev->next = temp;
+            prev->next = nullptr;
+            tail = prev;
         }
 
-        //Increment the list size
-        size++;
+        //3.Delete the temperary problem
+        delete temp;
+
+        //Decrement the list size
+        size--;
     }
 
-    void removeProblem()
+    //Remove problem by position
+    void removeByPos(int pos)
+    {
+        //Check if the linked list is empty
+        if (isEmpty() == true)
+        {
+            return;
+        }
+
+        //Check position index (if it is out of bound)
+        if ((pos >= size) || (pos < 0))
+        {
+            return;
+        }
+
+        //Remove from the beginning of the list (index: 0)
+        if (pos == 0)
+        {
+            removeFromBeg();
+        }
+        //Remove from the end of the list (index: position)
+        else if (pos == size - 1)
+        {
+            removeFromEnd();
+        }
+        //Remove from the middle of the list
+        else
+        {
+            removeFromMid(pos);
+        }
+
+        return;
+    }
+
+    //Remove problem by problem ID
+    void removeByID(int id)
+    {
+        //Create a temperary problem
+        problem* temp = new problem;
+        temp = head;
+
+        //Create a position counter
+        int pos = 0;
+
+        while (temp != nullptr)
+        {
+            if (temp->id == id)
+            {
+                removeByPos(pos);
+                break;
+            }
+            else
+            {
+                pos++;
+            }
+            temp = temp->next;
+        }
+
+        return;
+    }
+
+    //Remove problem by problem name
+    void removeByName(string name)
     {
 
+
+
+
+
     }
+
+
 
     void sortProblem()
     {
+
+
+
+
+
 
     }
 
@@ -167,9 +398,9 @@ int main(int argc, char* argv[])
     //string command = am.get("command");
 
     //Test
-    string input = "input21.txt";
+    string input = "input23.txt";
     string output = "output21.txt";
-    string command = "command21.txt";
+    string command = "command23.txt";
 
     ifstream inFS;
     ofstream outFS;
@@ -229,7 +460,7 @@ int main(int argc, char* argv[])
         //Read problem difficulty
         getline(inSS, difficulty);
 
-        QList.inputProblem(id, name, difficulty);
+        QList.addAtEnd(id, name, difficulty);
     }
 
     //Close input file
@@ -237,8 +468,8 @@ int main(int argc, char* argv[])
 
     //Create variable for parsing command file
     string condition;
-    int location;
-    string location_str;
+    int position;
+    string position_str;
 
     //Open command file
     inFS.open(command);
@@ -274,8 +505,8 @@ int main(int argc, char* argv[])
             getline(inSS, bin, ':');
 
             //Read insert location
-            getline(inSS, location_str, ' ');
-            location = stoi(location_str);
+            getline(inSS, position_str, ' ');
+            position = stoi(position_str);
 
             //Read useless information
             getline(inSS, bin, ':');
@@ -297,11 +528,58 @@ int main(int argc, char* argv[])
             getline(inSS, difficulty);
 
             //Add to the problem list
-            QList.addProblem(location, id, name, difficulty);
+            QList.addProblem(position, id, name, difficulty);
         }
         else if (condition == "remove")
         {
+            //Check further condition: id/name/difficulty/pos
+            getline(inSS, bin, ':');
 
+            //Remove by position
+            if (bin == "pos")
+            {
+                //Read remove location
+                getline(inSS, position_str);
+                position = stoi(position_str);
+
+                //Call function remove by position
+                QList.removeByPos(position);
+            }
+            //Remove by problem ID
+            else if (bin == "problem_id")
+            {
+                //Read problem ID
+                getline(inSS, id_str);
+                id = stoi(id_str);
+
+                //Call function remove by problem ID
+                QList.removeByID(id);
+            }
+            //Remove by problem name
+            else if (bin == "problem_name")
+            {
+                //Read problem name
+                getline(inSS, name);
+
+
+
+
+
+            }
+            //Remove by problem difficulty
+            else if (bin == "difficulty")
+            {
+                //Read problem difficulty
+                getline(inSS, difficulty);
+
+
+
+
+            }
+            else
+            {
+                cout << "Invalid condition." << endl;
+            }
         }
         else if (condition == "sort")
         {
@@ -309,7 +587,7 @@ int main(int argc, char* argv[])
         }
         else
         {
-            cout << "Invail condition." << endl;
+            cout << "Invalid condition." << endl;
         }
 
 
@@ -319,7 +597,6 @@ int main(int argc, char* argv[])
 
 
 
-    //add pos:2 problem_id:440445, problem_name:Unknown, difficulty:Hard
 
 
 
@@ -328,7 +605,7 @@ int main(int argc, char* argv[])
     problem* temp = QList.getHead();
     while (temp != nullptr)
     {
-        cout << temp->id << temp->name << temp->difficulty << endl;
+        cout << temp->id << " " << temp->name << " " << temp->difficulty << endl;
         temp = temp->next;
     }
 
