@@ -24,12 +24,40 @@ private:
     //Head pointer points to the first problem
     problem* head;
 
+    //Tail pointer points to the last problem
+    problem* tail;
 
 public:
     //Constructor
     problemList()
     {
         head = nullptr;
+        tail = nullptr;
+    }
+
+    void inputProblem(int id, string name, string difficulty)
+    {
+        //1.Create a temperary problem
+        problem* temp = new problem;
+
+        //2.Fill the problem information
+        temp->id = id;
+        temp->name = name;
+        temp->difficulty = difficulty;
+
+        //3.Update the pointer
+        temp->next = nullptr;
+
+        if (head == nullptr)
+        {
+            head = temp;
+            tail = temp;
+        }
+        else
+        {
+            tail->next = temp;
+            tail = temp;
+        }
     }
 
     void addProblem(int location, int id, string name, string difficulty)
@@ -79,6 +107,23 @@ int main(int argc, char* argv[])
     string command = "command21.txt";
 
     ifstream inFS;
+    ofstream outFS;
+
+    inFS.open(input);
+
+    //Check if the input is open
+    if (!inFS.is_open())
+    {
+        cout << "Could not open input file." << endl;
+        return 1;
+    }
+
+    //Read the input file: problem list
+
+
+    //Write a new function to create linked list
+
+
 
 
 
