@@ -27,12 +27,16 @@ private:
     //Tail pointer points to the last problem
     problem* tail;
 
+    //Linked list size
+    int size;
+
 public:
     //Constructor
     problemList()
     {
         head = nullptr;
         tail = nullptr;
+        size = 0;
     }
 
     //Accessor
@@ -40,6 +44,7 @@ public:
     {
         return head;
     }
+
 
     void inputProblem(int id, string name, string difficulty)
     {
@@ -68,6 +73,11 @@ public:
 
     void addProblem(int location, int id, string name, string difficulty)
     {
+        if (location < 0)
+        {
+            location = 0;
+        }
+        
         //1.Create a temperary problem
         problem* temp = new problem;
 
@@ -116,6 +126,7 @@ int main(int argc, char* argv[])
     ofstream outFS;
     istringstream inSS;
 
+    //Open input file
     inFS.open(input);
 
     //Check if the input is open
@@ -138,6 +149,12 @@ int main(int argc, char* argv[])
     //Read the input file line by line
     while (getline(inFS, line))
     {
+        //Check if the line is empty (if so continue to read next line)
+        if (line.empty())
+        {
+            continue;
+        }
+
         //Clear input string stream
         inSS.clear();
 
@@ -169,13 +186,102 @@ int main(int argc, char* argv[])
     //Close input file
     inFS.close();
 
+    //Create variable for parsing command file
+    string condition;
+    int location;
+    string location_str;
+
+    //Open command file
+    inFS.open(command);
+
+    //Check if the command is open
+    if (!inFS.is_open())
+    {
+        cout << "Could not open input file." << endl;
+        return 1;
+    }
+
+    //Read command file line by line
+    while (getline(inFS, line))
+    {
+        //Check if the line is empty (if so continue to read next line)
+        if (line.empty())
+        {
+            continue;
+        }
+
+        //Clear input string stream
+        inSS.clear();
+
+        //Using input string stream to read problem line
+        inSS.str(line);
+
+        //Read the condition: add/remove/sort
+        getline(inSS, condition, ' ');
+
+        if (condition == "add")
+        {
+            //Read useless information
+            getline(inSS, bin, ':');
+
+            //Read insert location
+            getline(inSS, location_str, ' ');
+            location = stoi(location_str);
+
+            //Read useless information
+            getline(inSS, bin, ':');
+
+            //Read problem ID
+            getline(inSS, id_str, ',');
+            id = stoi(id_str);
+
+            //Read useless information
+            getline(inSS, bin, ':');
+
+            //Read problem name
+            getline(inSS, name, ',');
+
+            //Read useless information
+            getline(inSS, bin, ':');
+
+            //Read problem difficulty
+            getline(inSS, difficulty);
+
+            //Add to the problem list
+            QList.addProblem(location, id, name, difficulty);
+        }
+        else if (condition == "remove")
+        {
+
+        }
+        else if (condition == "sort")
+        {
+
+        }
+        else
+        {
+            cout << "Invail condition." << endl;
+        }
+
+
+
+
+    }
+
+
+
+    //add pos:2 problem_id:440445, problem_name:Unknown, difficulty:Hard
+
+
+
+
     //Test
-    /*problem* temp = QList.getHead();
+    problem* temp = QList.getHead();
     while (temp != nullptr)
     {
         cout << temp->id << temp->name << temp->difficulty << endl;
         temp = temp->next;
-    }*/
+    }
 
 
 
