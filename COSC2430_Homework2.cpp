@@ -69,6 +69,9 @@ public:
             tail->next = temp;
             tail = temp;
         }
+
+        //Increment the list size
+        size++;
     }
 
     //Create a function to check if the id is repeated
@@ -121,14 +124,16 @@ public:
         //The index is in the right range
         else
         {
+            problem* prev = new problem;
+            prev = head;
 
+            for (int i = 0; i < location - 1; i++)
+            {
+                prev = prev->next;
+            }
 
-
-
-
-
-
-
+            temp->next = prev->next;
+            prev->next = temp;
         }
 
         //Increment the list size
