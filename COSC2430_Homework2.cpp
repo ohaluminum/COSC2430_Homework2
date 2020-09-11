@@ -92,6 +92,11 @@ public:
         return 0;
     }
 
+    void swapValue(problem* first, problem* second)
+    {
+
+    }
+
     //-------------------------------------------------------- ADD FUNCTION -----------------------------------------------
 
     //Add problem at the beginning of the linked list
@@ -479,8 +484,8 @@ public:
 
     //----------------------------------------------------- SORT FUNCTION -----------------------------------------------
 
-    //Sort problem by problem ID
-    void sortByID(string condition)
+    //Sort problem
+    void sortProblem(string sortBy, string order)
     {
         if (size > 1)
         {
@@ -494,7 +499,7 @@ public:
             problem* curr = new problem;
 
             //Sort increasingly
-            if (condition == "increasing")
+            if (order == "increasing")
             {
                 //Bubble sort
                 for (int i = 0; i < size - 1; i++)
@@ -505,23 +510,66 @@ public:
 
                     for (int j = 0; j < size - 1 - i; j++)
                     {
-                        if (prev->id > curr->id)
+                        //Sort by problem ID
+                        if (sortBy == "problem_id")
                         {
-                            //Store current to temp
-                            tempID = prev->id;
-                            tempName = prev->name;
-                            tempDifficulty = prev->difficulty;
+                            if (prev->id > curr->id)
+                            {
+                                //Store current to temp
+                                tempID = prev->id;
+                                tempName = prev->name;
+                                tempDifficulty = prev->difficulty;
 
-                            //Swap current and next
-                            prev->id = curr->id;
-                            prev->name = curr->name;
-                            prev->difficulty = curr->difficulty;
+                                //Swap current and next
+                                prev->id = curr->id;
+                                prev->name = curr->name;
+                                prev->difficulty = curr->difficulty;
 
-                            curr->id = tempID;
-                            curr->name = tempName;
-                            curr->difficulty = tempDifficulty;
+                                curr->id = tempID;
+                                curr->name = tempName;
+                                curr->difficulty = tempDifficulty;
+                            }
                         }
+                        //Sort by problem name
+                        else if (sortBy == "problem_name")
+                        {
+                            if (prev->name.compare(curr->name) > 0)
+                            {
+                                //Store current to temp
+                                tempID = prev->id;
+                                tempName = prev->name;
+                                tempDifficulty = prev->difficulty;
 
+                                //Swap current and next
+                                prev->id = curr->id;
+                                prev->name = curr->name;
+                                prev->difficulty = curr->difficulty;
+
+                                curr->id = tempID;
+                                curr->name = tempName;
+                                curr->difficulty = tempDifficulty;
+                            }
+                        }
+                        else if (sortBy == "difficulty")
+                        {
+                            if (difficultyLevel(prev->difficulty) > difficultyLevel(curr->difficulty))
+                            {
+                                //Store current to temp
+                                tempID = prev->id;
+                                tempName = prev->name;
+                                tempDifficulty = prev->difficulty;
+
+                                //Swap current and next
+                                prev->id = curr->id;
+                                prev->name = curr->name;
+                                prev->difficulty = curr->difficulty;
+
+                                curr->id = tempID;
+                                curr->name = tempName;
+                                curr->difficulty = tempDifficulty;
+                            }
+                        }
+                       
                         //Move pointer
                         prev = curr;
                         curr = curr->next;
@@ -529,7 +577,7 @@ public:
                 }
             }
             //Sort decreasingly
-            else if (condition == "decreasing")
+            else if (order == "decreasing")
             {
                 //Bubble sort
                 for (int i = 0; i < size - 1; i++)
@@ -540,21 +588,65 @@ public:
 
                     for (int j = 0; j < size - 1 - i; j++)
                     {
-                        if (prev->id < curr->id)
+                        //Sort by problem ID
+                        if (sortBy == "problem_id")
                         {
-                            //Store current to temp
-                            tempID = prev->id;
-                            tempName = prev->name;
-                            tempDifficulty = prev->difficulty;
+                            if (prev->id < curr->id)
+                            {
+                                //Store current to temp
+                                tempID = prev->id;
+                                tempName = prev->name;
+                                tempDifficulty = prev->difficulty;
 
-                            //Swap current and next
-                            prev->id = curr->id;
-                            prev->name = curr->name;
-                            prev->difficulty = curr->difficulty;
+                                //Swap current and next
+                                prev->id = curr->id;
+                                prev->name = curr->name;
+                                prev->difficulty = curr->difficulty;
 
-                            curr->id = tempID;
-                            curr->name = tempName;
-                            curr->difficulty = tempDifficulty;
+                                curr->id = tempID;
+                                curr->name = tempName;
+                                curr->difficulty = tempDifficulty;
+                            }
+                        }
+                        //Sort by problem name
+                        else if (sortBy == "problem_name")
+                        {
+                            if (prev->name.compare(curr->name) < 0)
+                            {
+                                //Store current to temp
+                                tempID = prev->id;
+                                tempName = prev->name;
+                                tempDifficulty = prev->difficulty;
+
+                                //Swap current and next
+                                prev->id = curr->id;
+                                prev->name = curr->name;
+                                prev->difficulty = curr->difficulty;
+
+                                curr->id = tempID;
+                                curr->name = tempName;
+                                curr->difficulty = tempDifficulty;
+                            }
+                        }
+                        //Sort by problem name
+                        else if (sortBy == "difficulty")
+                        {
+                            if (difficultyLevel(prev->difficulty) < difficultyLevel(curr->difficulty))
+                            {
+                                //Store current to temp
+                                tempID = prev->id;
+                                tempName = prev->name;
+                                tempDifficulty = prev->difficulty;
+
+                                //Swap current and next
+                                prev->id = curr->id;
+                                prev->name = curr->name;
+                                prev->difficulty = curr->difficulty;
+
+                                curr->id = tempID;
+                                curr->name = tempName;
+                                curr->difficulty = tempDifficulty;
+                            }
                         }
 
                         //Move pointer
@@ -562,210 +654,13 @@ public:
                         curr = curr->next;
                     }
                 }
-            }
-            else
-            {
-                cout << "Invalid condition." << endl;
             }
         }
         return;
-    }
-
-    //Sort problem by problem name
-    void sortByName(string condition)
-    {
-        if (size > 1)
-        {
-            //Create temperary variable to store information
-            int tempID;
-            string tempName;
-            string tempDifficulty;
-
-            //Create a previous question and current question
-            problem* prev = new problem;
-            problem* curr = new problem;
-
-            //Sort increasingly
-            if (condition == "increasing")
-            {
-                //Bubble sort
-                for (int i = 0; i < size - 1; i++)
-                {
-                    //Reset the previous question and current question
-                    prev = head;
-                    curr = head->next;
-
-                    for (int j = 0; j < size - 1 - i; j++)
-                    {
-                        if (prev->name.compare(curr->name) > 0)
-                        {
-                            //Store current to temp
-                            tempID = prev->id;
-                            tempName = prev->name;
-                            tempDifficulty = prev->difficulty;
-
-                            //Swap current and next
-                            prev->id = curr->id;
-                            prev->name = curr->name;
-                            prev->difficulty = curr->difficulty;
-
-                            curr->id = tempID;
-                            curr->name = tempName;
-                            curr->difficulty = tempDifficulty;
-                        }
-
-                        //Move pointer
-                        prev = curr;
-                        curr = curr->next;
-                    }
-                }
-            }
-            //Sort decreasingly
-            else if (condition == "decreasing")
-            {
-                //Bubble sort
-                for (int i = 0; i < size - 1; i++)
-                {
-                    //Reset the previous question and current question
-                    prev = head;
-                    curr = head->next;
-
-                    for (int j = 0; j < size - 1 - i; j++)
-                    {
-                        if (prev->name.compare(curr->name) < 0)
-                        {
-                            //Store current to temp
-                            tempID = prev->id;
-                            tempName = prev->name;
-                            tempDifficulty = prev->difficulty;
-
-                            //Swap current and next
-                            prev->id = curr->id;
-                            prev->name = curr->name;
-                            prev->difficulty = curr->difficulty;
-
-                            curr->id = tempID;
-                            curr->name = tempName;
-                            curr->difficulty = tempDifficulty;
-                        }
-
-                        //Move pointer
-                        prev = curr;
-                        curr = curr->next;
-                    }
-                }
-            }
-            else
-            {
-                cout << "Invalid condition." << endl;
-            }
-        }
-        return;
-    }
-
-    //Sort problem by problem difficulty
-    void sortByDifficulty(string condition)
-    {
-        if (size > 1)
-        {
-            //Create temperary variable to store information
-            int tempID;
-            string tempName;
-            string tempDifficulty;
-
-            //Create a previous question and current question
-            problem* prev = new problem;
-            problem* curr = new problem;
-
-            //Sort increasingly
-            if (condition == "increasing")
-            {
-                //Bubble sort
-                for (int i = 0; i < size - 1; i++)
-                {
-                    //Reset the previous question and current question
-                    prev = head;
-                    curr = head->next;
-
-                    for (int j = 0; j < size - 1 - i; j++)
-                    {
-                        if (difficultyLevel(prev->difficulty) > difficultyLevel(curr->difficulty))
-                        {
-                            //Store current to temp
-                            tempID = prev->id;
-                            tempName = prev->name;
-                            tempDifficulty = prev->difficulty;
-
-                            //Swap current and next
-                            prev->id = curr->id;
-                            prev->name = curr->name;
-                            prev->difficulty = curr->difficulty;
-
-                            curr->id = tempID;
-                            curr->name = tempName;
-                            curr->difficulty = tempDifficulty;
-                        }
-
-                        //Move pointer
-                        prev = curr;
-                        curr = curr->next;
-                    }
-                }
-            }
-            //Sort decreasingly
-            else if (condition == "decreasing")
-            {
-                //Bubble sort
-                for (int i = 0; i < size - 1; i++)
-                {
-                    //Reset the previous question and current question
-                    prev = head;
-                    curr = head->next;
-
-                    for (int j = 0; j < size - 1 - i; j++)
-                    {
-                        if (difficultyLevel(prev->difficulty) < difficultyLevel(curr->difficulty))
-                        {
-                            //Store current to temp
-                            tempID = prev->id;
-                            tempName = prev->name;
-                            tempDifficulty = prev->difficulty;
-
-                            //Swap current and next
-                            prev->id = curr->id;
-                            prev->name = curr->name;
-                            prev->difficulty = curr->difficulty;
-
-                            curr->id = tempID;
-                            curr->name = tempName;
-                            curr->difficulty = tempDifficulty;
-                        }
-
-                        //Move pointer
-                        prev = curr;
-                        curr = curr->next;
-                    }
-                }
-            }
-            else
-            {
-                cout << "Invalid condition." << endl;
-            }
-        }
-        return;
-
-
-
-
-
-
-
-
-
-
     }
 };
 
+    //----------------------------------------------------- MAIN FUNCTION -----------------------------------------------
 
 int main(int argc, char* argv[])
 {
@@ -777,9 +672,9 @@ int main(int argc, char* argv[])
     //string command = am.get("command");
 
     //Test
-    string input = "input20.txt";
+    string input = "input23.txt";
     string output = "output21.txt";
-    string command = "command20.txt";
+    string command = "command23.txt";
 
     ifstream inFS;
     ofstream outFS;
@@ -849,6 +744,8 @@ int main(int argc, char* argv[])
     string condition;
     int position;
     string position_str;
+    string sortBy;
+    string order;
 
     //Open command file
     inFS.open(command);
@@ -924,7 +821,6 @@ int main(int argc, char* argv[])
                 //Call function remove by position
                 QList.removeByPos(position);
             }
-
             //Remove by problem ID
             else if (bin == "problem_id")
             {
@@ -935,7 +831,6 @@ int main(int argc, char* argv[])
                 //Call function remove by problem ID
                 QList.removeByID(id);
             }
-
             //Remove by problem name
             else if (bin == "problem_name")
             {
@@ -945,7 +840,6 @@ int main(int argc, char* argv[])
                 //Call function remove by problem name
                 QList.removeByName(name);
             }
-
             //Remove by problem difficulty
             else if (bin == "difficulty")
             {
@@ -955,7 +849,6 @@ int main(int argc, char* argv[])
                 //Call funtion remove by problem difficulty
                 QList.removeByDifficulty(difficulty);
             }
-
             else
             {
                 cout << "Invalid condition." << endl;
@@ -963,47 +856,16 @@ int main(int argc, char* argv[])
         }
         else if (condition == "sort")
         {
-            //Check further condition: id/name/difficulty/pos
-            getline(inSS, bin, ' ');
+            //Check further condition: id/name/difficulty/pos and incresing/decreasing
+            getline(inSS, sortBy, ' ');
+            getline(inSS, order);
 
-            //Sort by problem Id
-            if (bin == "problem_id")
-            {
-                //Store sort order requirement
-                getline(inSS, condition);
-                QList.sortByID(condition);
-            }
-
-            //Sort by problem name
-            else if (bin == "problem_name")
-            {
-                //Store sort order requirement
-                getline(inSS, condition);
-                QList.sortByName(condition);
-            }
-
-            //Sort by problem difficulty
-            else if (bin == "difficulty")
-            {
-                //Store sort order requirement
-                getline(inSS, condition);
-                QList.sortByDifficulty(condition);
-            }
-
-            else
-            {
-                cout << "Invalid condition." << endl;
-            }
-
+            QList.sortProblem(sortBy, order);
         }
         else
         {
             cout << "Invalid condition." << endl;
         }
-
-
-
-
     }
 
 
