@@ -510,89 +510,68 @@ public:
             problem* prev = new problem;
             problem* curr = new problem;
 
-            //Sort increasingly
-            if (order == "increasing")
+            //Bubble sort
+            for (int i = 0; i < size - 1; i++)
             {
-                //Bubble sort
-                for (int i = 0; i < size - 1; i++)
+                //Reset the previous question and current question
+                prev = head;
+                curr = head->next;
+
+                for (int j = 0; j < size - 1 - i; j++)
                 {
-                    //Reset the previous question and current question
-                    prev = head;
-                    curr = head->next;
-
-                    for (int j = 0; j < size - 1 - i; j++)
+                    //Sort order: increasing
+                    //Sort by problem ID
+                    if ((sortBy == "problem_id") && (order == "increasing"))
                     {
-                        //Sort by problem ID
-                        if (sortBy == "problem_id")
+                        if (prev->id > curr->id)
                         {
-                            if (prev->id > curr->id)
-                            {
-                                swapValue(prev, curr);
-                            }
+                            swapValue(prev, curr);
                         }
-                        //Sort by problem name
-                        else if (sortBy == "problem_name")
-                        {
-                            if (prev->name.compare(curr->name) > 0)
-                            {
-                                swapValue(prev, curr);
-                            }
-                        }
-                        else if (sortBy == "difficulty")
-                        {
-                            if (difficultyLevel(prev->difficulty) > difficultyLevel(curr->difficulty))
-                            {
-                                swapValue(prev, curr);
-                            }
-                        }
-                       
-                        //Move pointer
-                        prev = curr;
-                        curr = curr->next;
                     }
-                }
-            }
-            //Sort decreasingly
-            else if (order == "decreasing")
-            {
-                //Bubble sort
-                for (int i = 0; i < size - 1; i++)
-                {
-                    //Reset the previous question and current question
-                    prev = head;
-                    curr = head->next;
-
-                    for (int j = 0; j < size - 1 - i; j++)
+                    //Sort by problem name
+                    else if ((sortBy == "problem_name") && (order == "increasing"))
                     {
-                        //Sort by problem ID
-                        if (sortBy == "problem_id")
+                        if (prev->name.compare(curr->name) > 0)
                         {
-                            if (prev->id < curr->id)
-                            {
-                                swapValue(prev, curr);
-                            }
+                            swapValue(prev, curr);
                         }
-                        //Sort by problem name
-                        else if (sortBy == "problem_name")
-                        {
-                            if (prev->name.compare(curr->name) < 0)
-                            {
-                                swapValue(prev, curr);
-                            }
-                        }
-                        //Sort by problem name
-                        else if (sortBy == "difficulty")
-                        {
-                            if (difficultyLevel(prev->difficulty) < difficultyLevel(curr->difficulty))
-                            {
-                                swapValue(prev, curr);
-                            }
-                        }
-
-                        //Move pointer
-                        prev = curr;
-                        curr = curr->next;
                     }
+                    else if ((sortBy == "difficulty") && (order == "increasing"))
+                    {
+                        if (difficultyLevel(prev->difficulty) > difficultyLevel(curr->difficulty))
+                        {
+                            swapValue(prev, curr);
+                        }
+                    }
+                    //Sort order: decreasing
+                    //Sort by problem ID
+                    else if ((sortBy == "problem_id") && (order == "decreasing"))
+                    {
+                        if (prev->id < curr->id)
+                        {
+                            swapValue(prev, curr);
+                        }
+                    }
+                    //Sort by problem name
+                    else if ((sortBy == "problem_name") && (order == "decreasing"))
+                    {
+                        if (prev->name.compare(curr->name) < 0)
+                        {
+                            swapValue(prev, curr);
+                        }
+                    }
+                    //Sort by problem name
+                    else if ((sortBy == "difficulty") && (order == "decreasing"))
+                    {
+                        if (difficultyLevel(prev->difficulty) < difficultyLevel(curr->difficulty))
+                        {
+                            swapValue(prev, curr);
+                        }
+                    }
+
+                    //Move pointer
+                    prev = curr;
+                    curr = curr->next;
                 }
             }
         }
