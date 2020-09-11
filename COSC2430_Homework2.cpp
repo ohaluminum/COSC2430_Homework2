@@ -73,6 +73,25 @@ public:
         return false;
     }
 
+    //Create a function to return difficulty level
+    int difficultyLevel(string difficulty)
+    {
+        if (difficulty == "Easy")
+        {
+            return 1;
+        }
+        else if (difficulty == "Medium")
+        {
+            return 2;
+        }
+        else if (difficulty == "Hard")
+        {
+            return 3;
+        }
+
+        return 0;
+    }
+
     //-------------------------------------------------------- ADD FUNCTION -----------------------------------------------
 
     //Add problem at the beginning of the linked list
@@ -647,21 +666,104 @@ public:
     //Sort problem by problem difficulty
     void sortByDifficulty(string condition)
     {
+        if (size > 1)
+        {
+            //Create temperary variable to store information
+            int tempID;
+            string tempName;
+            string tempDifficulty;
+
+            //Create a previous question and current question
+            problem* prev = new problem;
+            problem* curr = new problem;
+
+            //Sort increasingly
+            if (condition == "increasing")
+            {
+                //Bubble sort
+                for (int i = 0; i < size - 1; i++)
+                {
+                    //Reset the previous question and current question
+                    prev = head;
+                    curr = head->next;
+
+                    for (int j = 0; j < size - 1 - i; j++)
+                    {
+                        if (difficultyLevel(prev->difficulty) > difficultyLevel(curr->difficulty))
+                        {
+                            //Store current to temp
+                            tempID = prev->id;
+                            tempName = prev->name;
+                            tempDifficulty = prev->difficulty;
+
+                            //Swap current and next
+                            prev->id = curr->id;
+                            prev->name = curr->name;
+                            prev->difficulty = curr->difficulty;
+
+                            curr->id = tempID;
+                            curr->name = tempName;
+                            curr->difficulty = tempDifficulty;
+                        }
+
+                        //Move pointer
+                        prev = curr;
+                        curr = curr->next;
+                    }
+                }
+            }
+            //Sort decreasingly
+            else if (condition == "decreasing")
+            {
+                //Bubble sort
+                for (int i = 0; i < size - 1; i++)
+                {
+                    //Reset the previous question and current question
+                    prev = head;
+                    curr = head->next;
+
+                    for (int j = 0; j < size - 1 - i; j++)
+                    {
+                        if (difficultyLevel(prev->difficulty) < difficultyLevel(curr->difficulty))
+                        {
+                            //Store current to temp
+                            tempID = prev->id;
+                            tempName = prev->name;
+                            tempDifficulty = prev->difficulty;
+
+                            //Swap current and next
+                            prev->id = curr->id;
+                            prev->name = curr->name;
+                            prev->difficulty = curr->difficulty;
+
+                            curr->id = tempID;
+                            curr->name = tempName;
+                            curr->difficulty = tempDifficulty;
+                        }
+
+                        //Move pointer
+                        prev = curr;
+                        curr = curr->next;
+                    }
+                }
+            }
+            else
+            {
+                cout << "Invalid condition." << endl;
+            }
+        }
+        return;
+
+
+
+
+
+
+
+
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
 };
 
 

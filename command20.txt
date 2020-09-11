@@ -1,1 +1,1 @@
-sort problem_name increasing
+sort difficulty decreasing
