@@ -349,11 +349,10 @@ public:
                 removeByPos(pos);
                 break;
             }
-            else
-            {
-                pos++;
-            }
+
+            //Move temp pointer
             temp = temp->next;
+            pos++;
         }
 
         return;
@@ -362,14 +361,104 @@ public:
     //Remove problem by problem name
     void removeByName(string name)
     {
+        //Create a temperary problem
+        problem* temp = new problem;
+        temp = head;
 
+        //Create a counter
+        int counter = 0;
 
+        //Count frequency
+        while (temp != nullptr)
+        {
+            if (name == temp->name)
+            {
+                counter++;
+            }
 
+            //Move pointer
+            temp = temp->next;
+        }
 
+        //Reset temp pointer
+        temp = head;
 
+        //Create a position counter
+        int pos = 0;
+
+        for (int i = 0; i < counter; i++)
+        {
+            while (temp != nullptr)
+            {
+                if (name == temp->name)
+                {
+                    removeByPos(pos);
+                    break;
+                }
+
+                //Move temp pointer
+                temp = temp->next;
+                pos++;
+            }
+
+            //Reset temp pointer
+            temp = head;
+        }
+
+        return;
     }
 
+    //Remove problem by problem difficulty
+    void removeByDifficulty(string difficulty)
+    {
+        //Create a temperary problem
+        problem* temp = new problem;
+        temp = head;
 
+        //Create a counter
+        int counter = 0;
+
+        //Count frequency
+        while (temp != nullptr)
+        {
+            if (difficulty == temp->difficulty)
+            {
+                counter++;
+            }
+
+            //Move pointer
+            temp = temp->next;
+        }
+
+        //Reset temp pointer
+        temp = head;
+
+        //Create a position counter
+        int pos = 0;
+
+        for (int i = 0; i < counter; i++)
+        {
+            while (temp != nullptr)
+            {
+                if (difficulty == temp->difficulty)
+                {
+                    removeByPos(pos);
+                    break;
+                }
+
+                //Move temp pointer
+                temp = temp->next;
+                pos++;
+            }
+
+            //Reset temp pointer
+            temp = head;
+        }
+
+        return;
+    }
+
+    //----------------------------------------------------- SORT FUNCTION -----------------------------------------------
 
     void sortProblem()
     {
@@ -398,9 +487,9 @@ int main(int argc, char* argv[])
     //string command = am.get("command");
 
     //Test
-    string input = "input23.txt";
+    string input = "input20.txt";
     string output = "output21.txt";
-    string command = "command23.txt";
+    string command = "command20.txt";
 
     ifstream inFS;
     ofstream outFS;
@@ -545,6 +634,7 @@ int main(int argc, char* argv[])
                 //Call function remove by position
                 QList.removeByPos(position);
             }
+
             //Remove by problem ID
             else if (bin == "problem_id")
             {
@@ -555,27 +645,27 @@ int main(int argc, char* argv[])
                 //Call function remove by problem ID
                 QList.removeByID(id);
             }
+
             //Remove by problem name
             else if (bin == "problem_name")
             {
                 //Read problem name
                 getline(inSS, name);
 
-
-
-
-
+                //Call function remove by problem name
+                QList.removeByName(name);
             }
+
             //Remove by problem difficulty
             else if (bin == "difficulty")
             {
                 //Read problem difficulty
                 getline(inSS, difficulty);
 
-
-
-
+                //Call funtion remove by problem difficulty
+                QList.removeByDifficulty(difficulty);
             }
+
             else
             {
                 cout << "Invalid condition." << endl;
@@ -583,6 +673,16 @@ int main(int argc, char* argv[])
         }
         else if (condition == "sort")
         {
+
+
+
+
+
+
+
+
+
+
 
         }
         else
