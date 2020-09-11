@@ -24,9 +24,6 @@ private:
     //Head pointer points to the first problem
     problem* head;
 
-    //Tail pointer points to the last problem
-    problem* tail;
-
     //Linked list size
     int size;
 
@@ -35,7 +32,6 @@ public:
     problemList()
     {
         head = nullptr;
-        tail = nullptr;
         size = 0;
     }
 
@@ -112,6 +108,8 @@ public:
         second->id = tempID;
         second->name = tempName;
         second->difficulty = tempDifficulty;
+
+        return;
     }
 
     //-------------------------------------------------------- ADD FUNCTION -----------------------------------------------
@@ -201,14 +199,20 @@ public:
         if (head == nullptr)
         {
             head = temp;
-            tail = temp;
         }
         else
         {
-            tail->next = temp;
-            tail = temp;
-        }
+            problem* prev = new problem;
+            prev = head;
 
+            while (prev->next != nullptr)
+            {
+                prev = prev->next;
+            }
+
+            prev->next = temp;
+        }
+      
         //Increment the list size
         size++;
 
@@ -233,7 +237,6 @@ public:
         {
             addAtMid(pos, id, name, difficulty);
         }
-
         return;
     }
 
