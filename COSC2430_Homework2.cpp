@@ -94,7 +94,24 @@ public:
 
     void swapValue(problem* first, problem* second)
     {
+        //Create temperary variable
+        int tempID;
+        string tempName;
+        string tempDifficulty;
 
+        //Store current to temp
+        tempID = first->id;
+        tempName = first->name;
+        tempDifficulty = first->difficulty;
+
+        //Swap current and next
+        first->id = second->id;
+        first->name = second->name;
+        first->difficulty = second->difficulty;
+
+        second->id = tempID;
+        second->name = tempName;
+        second->difficulty = tempDifficulty;
     }
 
     //-------------------------------------------------------- ADD FUNCTION -----------------------------------------------
@@ -489,11 +506,6 @@ public:
     {
         if (size > 1)
         {
-            //Create temperary variable to store information
-            int tempID;
-            string tempName;
-            string tempDifficulty;
-
             //Create a previous question and current question
             problem* prev = new problem;
             problem* curr = new problem;
@@ -515,19 +527,7 @@ public:
                         {
                             if (prev->id > curr->id)
                             {
-                                //Store current to temp
-                                tempID = prev->id;
-                                tempName = prev->name;
-                                tempDifficulty = prev->difficulty;
-
-                                //Swap current and next
-                                prev->id = curr->id;
-                                prev->name = curr->name;
-                                prev->difficulty = curr->difficulty;
-
-                                curr->id = tempID;
-                                curr->name = tempName;
-                                curr->difficulty = tempDifficulty;
+                                swapValue(prev, curr);
                             }
                         }
                         //Sort by problem name
@@ -535,38 +535,14 @@ public:
                         {
                             if (prev->name.compare(curr->name) > 0)
                             {
-                                //Store current to temp
-                                tempID = prev->id;
-                                tempName = prev->name;
-                                tempDifficulty = prev->difficulty;
-
-                                //Swap current and next
-                                prev->id = curr->id;
-                                prev->name = curr->name;
-                                prev->difficulty = curr->difficulty;
-
-                                curr->id = tempID;
-                                curr->name = tempName;
-                                curr->difficulty = tempDifficulty;
+                                swapValue(prev, curr);
                             }
                         }
                         else if (sortBy == "difficulty")
                         {
                             if (difficultyLevel(prev->difficulty) > difficultyLevel(curr->difficulty))
                             {
-                                //Store current to temp
-                                tempID = prev->id;
-                                tempName = prev->name;
-                                tempDifficulty = prev->difficulty;
-
-                                //Swap current and next
-                                prev->id = curr->id;
-                                prev->name = curr->name;
-                                prev->difficulty = curr->difficulty;
-
-                                curr->id = tempID;
-                                curr->name = tempName;
-                                curr->difficulty = tempDifficulty;
+                                swapValue(prev, curr);
                             }
                         }
                        
@@ -593,19 +569,7 @@ public:
                         {
                             if (prev->id < curr->id)
                             {
-                                //Store current to temp
-                                tempID = prev->id;
-                                tempName = prev->name;
-                                tempDifficulty = prev->difficulty;
-
-                                //Swap current and next
-                                prev->id = curr->id;
-                                prev->name = curr->name;
-                                prev->difficulty = curr->difficulty;
-
-                                curr->id = tempID;
-                                curr->name = tempName;
-                                curr->difficulty = tempDifficulty;
+                                swapValue(prev, curr);
                             }
                         }
                         //Sort by problem name
@@ -613,19 +577,7 @@ public:
                         {
                             if (prev->name.compare(curr->name) < 0)
                             {
-                                //Store current to temp
-                                tempID = prev->id;
-                                tempName = prev->name;
-                                tempDifficulty = prev->difficulty;
-
-                                //Swap current and next
-                                prev->id = curr->id;
-                                prev->name = curr->name;
-                                prev->difficulty = curr->difficulty;
-
-                                curr->id = tempID;
-                                curr->name = tempName;
-                                curr->difficulty = tempDifficulty;
+                                swapValue(prev, curr);
                             }
                         }
                         //Sort by problem name
@@ -633,19 +585,7 @@ public:
                         {
                             if (difficultyLevel(prev->difficulty) < difficultyLevel(curr->difficulty))
                             {
-                                //Store current to temp
-                                tempID = prev->id;
-                                tempName = prev->name;
-                                tempDifficulty = prev->difficulty;
-
-                                //Swap current and next
-                                prev->id = curr->id;
-                                prev->name = curr->name;
-                                prev->difficulty = curr->difficulty;
-
-                                curr->id = tempID;
-                                curr->name = tempName;
-                                curr->difficulty = tempDifficulty;
+                                swapValue(prev, curr);
                             }
                         }
 
@@ -672,9 +612,9 @@ int main(int argc, char* argv[])
     //string command = am.get("command");
 
     //Test
-    string input = "input23.txt";
+    string input = "input20.txt";
     string output = "output21.txt";
-    string command = "command23.txt";
+    string command = "command20.txt";
 
     ifstream inFS;
     ofstream outFS;

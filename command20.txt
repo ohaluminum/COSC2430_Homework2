@@ -1,1 +1,1 @@
-sort difficulty increasing
+sort difficulty decreasing
