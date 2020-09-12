@@ -253,11 +253,10 @@ public:
         //2.Update the pointer
         temp = head;
 
-        //If the linked list has only one problem, the list will be empty after removing (head and tail will become nullptr)
+        //If the linked list has only one problem, the list will be empty after removing (head will become nullptr)
         if (size == 1)
         {
             head = nullptr;
-            tail = nullptr;
         }
         else if (size > 1)
         {
@@ -309,13 +308,11 @@ public:
         problem* temp = new problem;
 
         //2.Update the pointer
-        temp = tail;
 
-        //If the linked list has only one problem, the list will be empty after removing (head and tail will become nullptr)
+        //If the linked list has only one problem, the list will be empty after removing (head will become nullptr)
         if (size == 1)
         {
             head = nullptr;
-            tail = nullptr;
         }
         else if (size > 1)
         {
@@ -326,13 +323,12 @@ public:
             prev = head;
 
             //Point to the right position (before the remove position)
-            for (int i = 0; i < size - 2; i++)
+            while (prev->next->next != nullptr)
             {
                 prev = prev->next;
             }
 
             prev->next = nullptr;
-            tail = prev;
         }
 
         //3.Delete the temperary problem
