@@ -41,6 +41,11 @@ public:
         return head;
     }
 
+    int getSize()
+    {
+        return size;
+    }
+
     //Create a function to check if the problem id is repeated
     bool isRepeated(int id)
     {
@@ -590,9 +595,9 @@ int main(int argc, char* argv[])
     //string command = am.get("command");
 
     //Test
-    string input = "input20.txt";
-    string output = "output21.txt";
-    string command = "command20.txt";
+    string input = "input23.txt";
+    string output = "output23.txt";
+    string command = "command23.txt";
 
     ifstream inFS;
     ofstream outFS;
@@ -767,10 +772,6 @@ int main(int argc, char* argv[])
                 //Call funtion remove by problem difficulty
                 QList.removeByDifficulty(difficulty);
             }
-            else
-            {
-                cout << "Invalid condition." << endl;
-            }
         }
         else if (condition == "sort")
         {
@@ -780,59 +781,34 @@ int main(int argc, char* argv[])
 
             QList.sortProblem(sortBy, order);
         }
-        else
-        {
-            cout << "Invalid condition." << endl;
-        }
     }
 
+    //Close command file
+    inFS.close();
 
+    //Open output file
+    outFS.open(output);
 
-
-
-
-
-    //Test
-    problem* temp = QList.getHead();
-    while (temp != nullptr)
+    //Check if the output file is open
+    if (!outFS.is_open())
     {
-        cout << temp->id << " " << temp->name << " " << temp->difficulty << endl;
-        temp = temp->next;
+        cout << "Could not open output file." << endl;
+        return 1;
     }
 
+    problem* outputProblem = QList.getHead();
+    while (outputProblem != nullptr)
+    {
+        //write output file
+        outFS << "problem_id:" << outputProblem->id 
+              << ", problem_name:" << outputProblem->name 
+              << ", difficulty:" << outputProblem->difficulty << endl;
 
+        outputProblem = outputProblem->next;
+    }
 
+    //Close output file
+    outFS.close();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

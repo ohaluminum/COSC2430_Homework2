@@ -147,7 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="COSC2430_Homework2.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ans21.txt" />
@@ -161,6 +161,9 @@
     <Text Include="input22.txt" />
     <Text Include="input23.txt" />
     <Text Include="input20.txt" />
+    <Text Include="output21.txt" />
+    <Text Include="output22.txt" />
+    <Text Include="output23.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="test2.sh" />
